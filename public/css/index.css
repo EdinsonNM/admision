@@ -1,0 +1,78 @@
+@import "login.css";
+@import "admin.css";
+
+html,body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    height: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+    overflow: hidden;
+    background-color: #623262;
+    background: -moz-linear-gradient(top,  #623262 0%, #313162 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #623262 0%,#313162 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #623262 0%,#313162 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#623262', endColorstr='#313162',GradientType=0 ); /* IE6-9 */
+}
+
+#app{
+    height: 100%;
+    width: 100%;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(../fonts/Roboto-Regular.ttf) format('truetype'),
+         url(../fonts/Roboto-Thin.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Roboto-Thin';
+    font-style: normal;
+    font-weight: 100;
+    src: 
+        local('Roboto-Thin')
+        url(../fonts/Roboto-Thin.ttf);
+}
+@font-face {
+    font-family: 'AdventPro';
+    src: url(../fonts/AdventPro-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Baloo';
+    src: url(../fonts/Baloo-Regular.ttf);
+}
+
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: 
+		local('Material Icons'), 
+		local('MaterialIcons-Regular'), 
+		url(../fonts/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+.background-app{
+    background-color: #623262;
+    background: -moz-linear-gradient(top,  #623262 0%, #313162 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #623262 0%,#313162 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #623262 0%,#313162 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#623262', endColorstr='#313162',GradientType=0 ); /* IE6-9 */
+}
+
+.material-icons{
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+}

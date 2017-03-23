@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Sigma Cloud Client</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./css/color.css">
+		<link rel="stylesheet" href="./css/flex-layout.css">
+		<link rel="stylesheet" href="./css/common.css">
+		<link rel="stylesheet" href="./css/index.css">
+		<link rel="manifest" href="manifest.json">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="css/react-grid-layout/css/styles.css">
+		<link rel="stylesheet" href="css/react-resizable/css/styles.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/native-toast.css">
+		<link rel="stylesheet" href="css/loading.css">
+	</head>
+	<body class="fullbleed">
+		<div id="app" class="layout vertical center-center">
+			<img src="images/logo.svg" width="150px" height="auto"/>
+			<div class="spinner">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+			</div>
+		</div>
+		<script>
+			if ('serviceWorker' in navigator) {
+				/*window.addEventListener('load', function() {
+					navigator.serviceWorker.register('sw.js').then(function(reg) {
+						console.log('Yey!', reg);
+					}).catch(function(err) {
+						console.log('Boo!', err);
+					});
+				});*/
+			}
+		</script>
+		<script src="js/firebase.js"></script>
+		<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyC2dG_DICddlGM03PTPl6wXJfhv1W3jApY",
+			authDomain: "saiapp-fba39.firebaseapp.com",
+			databaseURL: "https://saiapp-fba39.firebaseio.com",
+			storageBucket: "saiapp-fba39.appspot.com",
+			messagingSenderId: "282939779470"
+		};
+		firebase.initializeApp(config);
+		</script>
+	</body>
+</html>
+
