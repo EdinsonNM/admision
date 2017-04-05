@@ -16,6 +16,10 @@ export default class User {
 
 		if(userData.institucion)
 			this._institucion = userData.institucion;
+		
+		if(userData.isAnonymous){
+			this._isAnonymous = userData.isAnonymous;
+		}
 
 		
 	}
@@ -39,6 +43,10 @@ export default class User {
 
 	get institucion(){
 		return this._institucion;
+	}
+
+	get isAnonymous(){
+		return this._isAnonymous;
 	}
 
 

@@ -117,6 +117,7 @@ export default class Facultad extends React.Component {
                     onChange = {(e)=>{this.handleChange('codigo',e);}}
                     value = {this.state.codigo} 
                     floatingLabelText="Código" 
+                    required
                     fullWidth/>
                 </div>
                 <div className="col-xs-12 col-sm-6 col-md-9">
@@ -124,6 +125,7 @@ export default class Facultad extends React.Component {
                     onChange = {(e)=>{this.handleChange('nombre',e);}}
                     value = {this.state.nombre} 
                     floatingLabelText="Nombre" 
+                    required
                     fullWidth/>
                 </div>
               

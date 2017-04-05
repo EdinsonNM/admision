@@ -16,8 +16,11 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import Divider from 'material-ui/Divider';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import PeriodoService from '../../services/PeriodoService';
-let service = new PeriodoService();
+import AdmisionService from '../../services/AdmisionService';
+import Cache from '../../services/Cache';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+
+let service = new AdmisionService();
 export default class ProcesosAdmision extends React.Component {
   constructor (props) {
     super(props);
@@ -44,7 +47,7 @@ export default class ProcesosAdmision extends React.Component {
     this.loadData();
   }
   edit(id){
-    document.location.hash=`#/dashboard/periodos/${id}/edit`;
+    document.location.hash=`#/dashboard/admisiones/${id}/edit`;
   }
   render(){
     
@@ -73,7 +76,7 @@ export default class ProcesosAdmision extends React.Component {
             itemsCurrent.push(
                     <ListItem
                         key={index}
-                        leftAvatar={<Avatar src="images/user0.jpg" />}
+                         leftAvatar={<Avatar icon={<FileFolder />} />}
                         rightIconButton={rightIconMenu}
                         primaryText={item.anio+' - '+item.periodo}
                         secondaryText={
@@ -90,12 +93,12 @@ export default class ProcesosAdmision extends React.Component {
             items.push(
                         <ListItem
                             key={index}
-                            leftAvatar={<Avatar src="images/user0.jpg" />}
+                             leftAvatar={<Avatar icon={<FileFolder />} />}
                             rightIconButton={rightIconMenu}
-                            primaryText={item.anio+' - '+item.periodo}
+                            primaryText={"Proceso de Admisión "+Cache.getItem('modalidadadmision',item.modalidad).nombre}
                             secondaryText={
                                 <p>
-                                <span style={{color: darkBlack}}>Activo</span><br />
+                                <span style={{color: darkBlack}}>Periodo {Cache.getItem('periodos',item.periodo).nombre}</span><br />
                                 {item.inicio+' - '+ item.fin}
                                 </p>
                             }

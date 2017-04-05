@@ -39,18 +39,19 @@ module.exports={
 	},
 	plugins:[
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, 'public/index.html'),
+			template: path.resolve(__dirname, 'public/app.html'),
 			hash: true,
-			filename: 'index.html',
+			filename: 'app.html',
 			inject: 'body'
 		}),
 		new CopyWebpackPlugin([
 			{from: 'public/css', to: 'css' },
-      {from: 'public/fonts', to: 'fonts' },
+      		{from: 'public/fonts', to: 'fonts' },
 			{from: 'public/images', to: 'images' },
 			{from: 'public/js', to: 'js' },
-      {from: 'public/manifest.json', to: 'manifest.json' },
-      {from: 'public/sw.js', to: 'sw.js' }
+			{from: 'public/manifest.json', to: 'manifest.json' },
+			{from: 'public/sw.js', to: 'sw.js' },
+			{from: 'public/index.html', to: 'index.html' }
 		]),
     
 	],

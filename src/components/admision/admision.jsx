@@ -19,10 +19,15 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import DatePicker from 'material-ui/DatePicker';
 import EscuelaService from '../../services/EscuelaService';
+import ModalidadAdmisionService from '../../services/ModalidadAdmisionService';
+import AdmisionService from '../../services/AdmisionService';
 import Cache from '../../services/Cache';
 import Checkbox from 'material-ui/Checkbox';
 import _ from 'underscore';
+import { hashHistory } from 'react-router';
+
 let escuelaService=new EscuelaService();
+let service = new AdmisionService();
 import {
   Step,
   Stepper,
@@ -39,6 +44,7 @@ export default class Admision extends React.Component {
   constructor (props) {
     super(props);
      this.state = {
+        id:0,
         finished: false,
         stepIndex: 0,
         periodo:'',
@@ -46,14 +52,11 @@ export default class Admision extends React.Component {
         descripcion:'',
         inicio:new Date(),
         fin: new Date(),
-        escuelas:[],
+        escuelas: Cache.getData('escuelas'),
     };
   }
   componentDidMount(){
-    escuelaService.getAll({},(error,data)=>{
-        this.setState({escuelas:data});
-        console.log(data);
-    });
+
   }
 handleNext(){
     const {stepIndex} = this.state;
@@ -87,17 +90,38 @@ handleChangeSelect(key, event, index, value){
 }
 handleChangeVacante(facultad,escuela,e){
   let escuelas = this.state.escuelas;
-  //let active = active||true;
-  let facObj = _.findWhere(escuelas, {id:facultad});
-  facObj[escuela].vacante = e.target.value;
+  
+  escuelas[facultad][escuela].vacante = e.target.value;
   this.setState({escuelas:escuelas});
 }
 handleCheckEscuela(facultad,escuela,e,isChecked){
   let escuelas = this.state.escuelas;
-  let facObj = _.findWhere(escuelas, {id:facultad});
-  facObj[escuela].active = isChecked;
+  escuelas[facultad][escuela].active = isChecked;
   this.setState({escuelas:escuelas});
 }
+
+ handleSave(){
+    if(this.state.id==0){
+      let data = JSON.parse(JSON.stringify(this.state));
+      delete data.id;
+      service.post(data,()=>{
+          console.log('save ok...');
+          hashHistory.goBack()
+      });
+    }else{
+      let data = JSON.parse(JSON.stringify(this.state));
+      delete data.uid;
+      delete data.id;
+      service.update(this.state.id,data,()=>{
+          console.log('update ok...');
+          hashHistory.goBack()
+      });
+    }
+
+  }
+  handleBack(){
+    hashHistory.goBack()
+  }
 
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -139,9 +163,47 @@ handleCheckEscuela(facultad,escuela,e,isChecked){
 
     let procesos =[];
 
-    for(let key in  Cache.getData('procesosadmision')){
-        procesos.push(<MenuItem value={key} primaryText={Cache.getItem('procesosadmision',key).nombre} key={key}/>);        
+    for(let key in  Cache.getData('modalidadadmision')){
+        procesos.push(<MenuItem value={key} primaryText={Cache.getItem('modalidadadmision',key).nombre} key={key}/>);        
     };
+
+    
+    let facultades=[];
+    for(let idFacultad in this.state.escuelas){
+        let escuelasItems=[];
+        let facultad= Cache.getItem('facultades',idFacultad);
+        for(let key in this.state.escuelas[idFacultad]){
+          if(key!=='id'){
+
+            let escuela = this.state.escuelas[idFacultad][key];
+            escuelasItems.push(
+            <div className="row" key={key}>
+
+                  <div className="col-xs-8 col-md-10">
+                      <Checkbox
+                          checked={escuela.active}
+                          label={escuela.nombre}
+                          style={{marginTop:'10px'}}
+                          onCheck={(e,isChecked)=>{ this.handleCheckEscuela(facultad.id,escuela.id,e,isChecked);}}
+                          />
+                      
+                  </div>
+                  <div className="col-xs-4 col-md-2">
+                      <TextField disabled={!escuela.active} value={escuela.vacante} onChange = {(e)=>{this.handleChangeVacante(facultad.id,escuela.id,e);}} type="number" defaultValue="" hintText="Vacantes" fullWidth/> 
+                  </div>
+                  <Divider />
+              </div>
+            );
+          }
+        }
+
+        facultades.push(
+          <List key={idFacultad}>
+              <Subheader>{facultad.nombre}</Subheader>
+              {escuelasItems}
+          </List>
+        );
+    }
     return (
           <Card>
             <CardHeader
@@ -214,42 +276,7 @@ handleCheckEscuela(facultad,escuela,e,isChecked){
           <Step>
             <StepLabel>Vacantes por escuela</StepLabel>
             <StepContent>
-                {
-                    this.state.escuelas.map((item,index)=>{
-                        let escuelas = [];
-                         for(let key in item){
-                            if(key!=='id'){
-                                let escuela = item[key];
-                                escuelas.push(
-                                    <div className="row" key={key}>
-
-                                        <div className="col-xs-8 col-md-10">
-                                            <Checkbox
-                                                checked={escuela.active}
-                                                label={escuela.nombre}
-                                                style={{marginTop:'10px'}}
-                                                onCheck={(e,isChecked)=>{ this.handleCheckEscuela(item.id,escuela.id,e,isChecked);}}
-                                                />
-                                            
-                                        </div>
-                                        <div className="col-xs-4 col-md-2">
-                                           <TextField disabled={!escuela.active} value={escuela.vacante} onChange = {(e)=>{this.handleChangeVacante(item.id,escuela.id,e);}} type="number" defaultValue="" hintText="Vacantes" fullWidth/> 
-                                        </div>
-                                        <Divider />
-                                    </div>
-                                );
-                            }
-                        }
-                        let facultad = Cache.getItem('facultades',item.id);
-                        return (
-                             <List key={index}>
-                                <Subheader>{(facultad)?facultad.nombre:''}</Subheader>
-                                {escuelas}
-                            </List>
-                        );
-                    })
-                }
-
+                {facultades}
             </StepContent>
           </Step>
             <Step>
@@ -310,7 +337,7 @@ handleCheckEscuela(facultad,escuela,e,isChecked){
                 <RaisedButton
                   label={stepIndex === 2 ? 'Grabar' : 'Siguiente'}
                   primary={true}
-                  onTouchTap={this.handleNext.bind(this)}
+                  onTouchTap={stepIndex === 2 ?this.handleSave.bind(this) :this.handleNext.bind(this) }
                 />
               </div>
             </div>

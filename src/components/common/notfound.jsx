@@ -79,16 +79,13 @@ export default class NotFound extends React.Component{
   
   render(){
     return (
-      <div className="content">
-        <canvas id="snow" className="snow"></canvas>
-        <div className="main-text">
-          <h2><img src="images/logo2.png" width="400" height="auto" /><br/>That page has gone missing.</h2>
-        </div>
-        <div className="ground">
-          <div className="mound"> 
-            <div className="mound_text">404</div>
-            <div className="mound_spade"></div>
-          </div>
+      <div className="content layout vertical center-center">
+        <canvas id="snow" className="snow">
+        </canvas>
+
+        <div className="main-text" style={{position:'absolute',left:'50%',top:'50%',marginLeft:'-185px',marginTop:'-113px',textAlign: 'center',color: 'white'}}>
+          <h2><img src="images/logo.svg" width="100" height="auto" /><br/>Pagina no encontrada.</h2>
+          Es probable que aun estemos mejorando algunas cosas :)
         </div>
       </div>
     );

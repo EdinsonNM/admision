@@ -19,6 +19,8 @@ import EscuelaService from '../../services/EscuelaService';
 import Cache from '../../services/Cache';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+
 const style={
   appbar:{
     backgroundColor:'var(--paper-purple-700)'
@@ -31,31 +33,19 @@ export default class Facultades extends React.Component {
     super(props);
     this.state={
       data:[],
-      facultad:{}
+      facultad:Cache.getItem('facultades',this.props.params.id)
     };
+    
   }
   
-  componentWillMount(){
-    this.load();
-  }
+ 
   componentDidMount(){
-    service.on((error,data)=>{
-      this.load();
-    })
-  }
-  componentWillUnmount(){
-      service.off();
-  }
-  load(){
-    debugger;
-    if(Cache.isEmpty('facultades')){
-      Cache.loadCache('facultades','facultades',(error,data)=>{
-        this.loadData();
-      });
-    }else{
+    this.loadData();
+    service.on(()=>{
       this.loadData();
-    }
+    },this.state.facultad.id)
   }
+ 
   loadData(){
     service.getAll({},(error,data)=>{
         this.setState({data:data});
@@ -92,16 +82,15 @@ export default class Facultades extends React.Component {
             items.push(
                         <ListItem
                             key={index}
-                            leftAvatar={<Avatar src="images/user0.jpg" />}
+                           leftAvatar={<Avatar icon={<FileFolder />} />}
                             rightIconButton={rightIconMenu}
                             primaryText={item.nombre}
                             secondaryText={
                                 <p>
                                 <span style={{color: darkBlack}}>Activo</span><br />
-                                kllklks
                                 </p>
                             }
-                            secondaryTextLines={2}
+                            secondaryTextLines={1}
                             />
                     );
             items.push(  <Divider key={'divider'+index} inset={true} />);
@@ -120,7 +109,7 @@ export default class Facultades extends React.Component {
           <Card>
             <CardHeader
             title="Listado de escuelas"
-            subtitle={(this.state.facultad.hasOwnProperty('nombre'))?this.facultad.nombre:''}
+            subtitle={this.state.facultad.nombre}
              avatar="images/user0.jpg"
             />
 

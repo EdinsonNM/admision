@@ -68,19 +68,21 @@ export default class Login extends React.Component{
 
 
 		return (
-			<div className="flex layout vertical center-center center-justified" >
+			<div className="flex layout vertical center-center center-justified" style={{height:'100%'}} >
 				<div className="login-container layout vertical center-center center-justified">
 					<img src="images/logo.svg" width="200PX" height="auto"/>
 					<h1>Sistema de Admisión</h1>
 					<h3>Sistema integral para el registro y aprobación de postulantes</h3>
 					<form>
 						<TextField
+							type="email"
 							floatingLabelStyle={styles.floatingLabelStyle}
 							floatingLabelText="Email"
 							value = {this.state.email}
 							onChange = {(e)=>{this.handleChange('email',e);}}
 							fullWidth
 							required
+							inputStyle={{color:'white'}}
 							/>
 						<TextField
 							floatingLabelStyle={styles.floatingLabelStyle}
@@ -90,6 +92,7 @@ export default class Login extends React.Component{
 							onChange = {(e)=>{this.handleChange('password',e);}}
 							fullWidth
 							required
+							inputStyle={{color:'white'}}
 							/>
 
 

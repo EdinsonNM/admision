@@ -17,6 +17,8 @@ import Divider from 'material-ui/Divider';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import PeriodoService from '../../services/PeriodoService';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+import moment from 'moment';
 let service = new PeriodoService();
 export default class Periodos extends React.Component {
   constructor (props) {
@@ -73,12 +75,12 @@ export default class Periodos extends React.Component {
             itemsCurrent.push(
                     <ListItem
                         key={index}
-                        leftAvatar={<Avatar src="images/user0.jpg" />}
+                         leftAvatar={<Avatar icon={<FileFolder />} style={{color:'red'}} />}
                         rightIconButton={rightIconMenu}
                         primaryText={item.anio+' - '+item.periodo}
                         secondaryText={
                             <p>
-                            {item.inicio+' - '+ item.fin}
+                             {moment(item.inicio).format('L')+' - '+ moment(item.fin).format('L')}
                             </p>
                         }
                         secondaryTextLines={2}
@@ -90,13 +92,13 @@ export default class Periodos extends React.Component {
             items.push(
                         <ListItem
                             key={index}
-                            leftAvatar={<Avatar src="images/user0.jpg" />}
+                             leftAvatar={<Avatar icon={<FileFolder />} />}
                             rightIconButton={rightIconMenu}
                             primaryText={item.anio+' - '+item.periodo}
                             secondaryText={
                                 <p>
                                 <span style={{color: darkBlack}}>Activo</span><br />
-                                {item.inicio+' - '+ item.fin}
+                                {moment(item.inicio).format('L')+' - '+ moment(item.fin).format('L')}
                                 </p>
                             }
                             secondaryTextLines={2}

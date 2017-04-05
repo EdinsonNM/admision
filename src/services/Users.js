@@ -3,7 +3,7 @@ let userInstance;
 let selectedUser = null;
 let route="usuarios";
 let database = firebase.database();
-let origin ="";
+let originApp ="";
 export default class Users{
   static get(uid,next){
       database.ref(`/${route}/${user.uid}`).once('value').then(function(snapshot) {
@@ -22,7 +22,10 @@ export default class Users{
   }
 
   static origin(){
-    return userInstance.institucion;
+    return (userInstance)?userInstance.institucion:originApp;
+  }
+  static originParam(origin){
+	originApp = origin;
   }
 
  

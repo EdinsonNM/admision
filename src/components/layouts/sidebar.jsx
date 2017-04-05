@@ -69,16 +69,18 @@ export default class Sidebar extends React.Component {
             <img src="images/logo.svg" />
             </div>
             <ListItem
-            leftAvatar={<Avatar src="images/user0.jpg" />}
+            leftAvatar={<Avatar src="images/user00.jpg" />}
             rightIconButton={rightIconMenu}
             primaryText={`${user.nombres} ${user.apellidos}`}  
 
             />
             <Subheader>Opciones</Subheader>
             <MenuItem href="#/dashboard/main">Inicio</MenuItem>
+            <MenuItem href="#/dashboard/facultades">Facultades</MenuItem>
+            <MenuItem href="#/dashboard/periodos">Periodos</MenuItem>
+            <MenuItem href="#/dashboard/admisiones">Procesos de Admisión</MenuItem>
             <MenuItem >Registro de Postulantes</MenuItem>
             <MenuItem >Evaluación de Postulantes</MenuItem>
-            <MenuItem >Enterga de Contancias</MenuItem>
         </Drawer>
     );
   }

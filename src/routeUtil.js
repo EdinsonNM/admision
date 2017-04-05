@@ -49,7 +49,9 @@ export default class RouteUtil{
 					replace({ pathname: '/login'});
 				} else {
 					UserService.setMe(data);
+					
 					nextState.location.state={me:data};
+
 
 				}
 				callback();
@@ -65,7 +67,14 @@ export default class RouteUtil{
 	}
 	static validateAuth( nextState, replace ) {
 		if(Auth.loggedIn()){
-			return replace({ pathname: '/dashboard/main'});
+			let user = UserService.me();
+			debugger;
+			if(!user.isAnonymous){
+				return replace({ pathname: '/dashboard/main'});
+			}else{
+				return replace({ pathname: '/postulante'});
+			}
+			
 		}
 	}
 }

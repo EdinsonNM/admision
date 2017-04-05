@@ -47,7 +47,8 @@ export default class Periodo extends React.Component {
         resolucion:'',
         fechaResolucion:new Date(),
         inicio:new Date(),
-        fin:new Date()
+        fin:new Date(),
+        activo:false
     };
   }
 
@@ -175,11 +176,11 @@ export default class Periodo extends React.Component {
                     hintText="Fin del Periodo" autoOk={true}  floatingLabelText="Fin del Periodo" fullWidth/>
                 </div>
                   <div className="col-xs-12 col-sm-6 col-md-3">
+                    <Checkbox label="Periodo Activo" onChange = {(e)=>{this.handleChange('activo',e);}}  value = {this.state.activo}  style={{marginTop:'35px'}}/>
                 </div>
             </div>
            <div className="row">
                    <div className="col-xs-12 col-sm-6 col-md-3">
-                    <Checkbox label="Marcar como Periodo Activo" onChange = {(e)=>{this.handleChange('activo',e);}}  value = {this.state.activo}  />
                 </div>
                  <div className="col-xs-12 col-sm-6 col-md-3">
                 </div>

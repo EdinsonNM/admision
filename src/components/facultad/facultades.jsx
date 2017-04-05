@@ -17,6 +17,7 @@ import Divider from 'material-ui/Divider';
 import FacultadService from '../../services/FacultadService';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import FileFolder from 'material-ui/svg-icons/file/folder';
 const style={
   appbar:{
     backgroundColor:'var(--paper-purple-700)'
@@ -83,16 +84,15 @@ export default class Facultades extends React.Component {
             items.push(
                         <ListItem
                             key={index}
-                            leftAvatar={<Avatar src="images/user0.jpg" />}
+                           leftAvatar={<Avatar icon={<FileFolder />} />}
                             rightIconButton={rightIconMenu}
                             primaryText={item.nombre}
                             secondaryText={
                                 <p>
-                                <span style={{color: darkBlack}}>Activo</span><br />
-                                kllklks
+                                {item.escuelas} escuelas registradas
                                 </p>
                             }
-                            secondaryTextLines={2}
+                            secondaryTextLines={1}
                             />
                     );
             items.push(  <Divider key={'divider'+index} inset={true} />);

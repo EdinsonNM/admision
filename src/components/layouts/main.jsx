@@ -80,9 +80,9 @@ export default class Admin extends React.Component {
        md:[
           {i: '1', x: 0, y: 0, w: 1, h: 1, static: true},
           {i: '2', x: 0, y: 1, w: 1, h: 1, static: true},
-          {i: '3', x: 1, y: 0, w: 2, h: 2, static: true},
-          {i: '4', x: 3, y: 0, w: 1, h: 1, static: true},
-          {i: '5', x: 3, y: 0, w: 1, h: 1, static: true},
+          {i: '3', x: 2, y: 0, w: 2, h: 2, static: true},
+          {i: '4', x: 1, y: 0, w: 1, h: 1, static: true},
+          {i: '5', x: 1, y: 0, w: 1, h: 1, static: true},
           {i: '6', x: 0, y: 2, w: 2, h: 2, static: true}
         ],
         sm:[
@@ -124,7 +124,7 @@ export default class Admin extends React.Component {
                 <a href="#/dashboard/facultades">
                       <Card style={{margin:'10px'}} className="card">
                         <CardMedia
-                        overlay={<CardTitle title="Facultades" subtitle="Consulte el listado de postulantes" />}
+                        overlay={<CardTitle title="Facultades" subtitle="Facultades y Escuelas" />}
                       >
                         <img src="images/bg02.png" />
 
@@ -139,7 +139,7 @@ export default class Admin extends React.Component {
                         <CardMedia
                         overlay={<CardTitle title="Proceso de Admision" subtitle="Realize la apertura del proceso  de Admisión" />}
                       >
-                        <img src="images/bg02.png" />
+                        <img src="images/md.gif" />
                       </CardMedia>
 
 
@@ -160,17 +160,18 @@ export default class Admin extends React.Component {
                 </a>
               </div>
               <div key={"4"}>
+                <a  href="#/dashboard/evaluaciones">
                   <Card style={{margin:'10px'}}>
                 
                   <CardMedia
-                    overlay={<CardTitle title="Admisión" subtitle="Entrega de Constancia" />}
+                    overlay={<CardTitle title="Evaluación" subtitle="Realize el registro de la evaluación de los postulantes" />}
                   >
-                    <img src="images/bg02.png" />
+                    <img src="images/bg05-01.png" />
                   </CardMedia>
                 
       
                 </Card>
-
+              </a>
               </div>
               <div key={"5"}>
                   <Card style={{margin:'10px'}}>
@@ -191,7 +192,7 @@ export default class Admin extends React.Component {
                         <CardMedia
                         overlay={<CardTitle title="Postulantes" subtitle="Consulte el listado de postulantes" />}
                       >
-                        <img src="images/bg02.png" />
+                        <img src="images/bg02-01.png" />
 
                       </CardMedia>
 

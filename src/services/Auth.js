@@ -11,23 +11,44 @@ import Users from './Users';
 const serviceName = 'login';
 window.loadeduser=false;
 export default class Auth{
+	static redirectAdmin(user,next){
+		window.user = user;
+		if(document.location.hash=='#/login'){
+			document.location.hash = "#/dashboard/main";
+		}
+		AuthToken.setToken(user.uid);
+		nativeToast({
+			message: 'Bienvenido!',
+			position: 'top',
+			timeout: 5000
+		});
+		return next(null,user);
+	}
+	static redirectPostulante(user,next){
+		window.user = user;
+		if(document.location.hash=='#/login'){
+			document.location.hash = "#/postulante/main";
+		}
+		AuthToken.setToken(user.refreshToken);
+		nativeToast({
+			message: 'Bienvenido!',
+			position: 'top',
+			timeout: 5000
+		});
+		return next(null,user);
+	}
   // login[POST]
   static init(next){
     firebase.auth().onAuthStateChanged(function(user) {
       window.loadeduser=true;
       console.log('loaded info user...');
       if (user) {
-        window.user = user;
-        if(document.location.hash=='#/login'){
-          document.location.hash = "#/dashboard/main";
-        }
-          AuthToken.setToken(user.uid);
-          nativeToast({
-            message: 'Bienvenido!',
-            position: 'top',
-            timeout: 5000
-          });
-          return next(null,user);
+		  if(user.isAnonymous){
+			Auth.redirectPostulante(user,next);
+		  }else{
+			Auth.redirectAdmin(user,next);
+		  }
+      
                 
       } else {
         console.log("no user... :(");
@@ -45,13 +66,25 @@ export default class Auth{
     });
   }
   
+  static loginAnonymous(model, next){
+	firebase.auth().signInAnonymously().catch(function(error) {
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		console.log(error);
+		return next(error);
+	});
+  }
 
   
   // me[GET]
   static me(next){
     var user = firebase.auth().currentUser;
     if (user) {
-      return Users.get(user.uid,next);
+		if(!user.isAnonymous){
+			return Users.get(user.uid,next);
+		}else{
+			return next(null,user);
+		}
     } else {
       return next({message:"No user is signed in."});
     }
